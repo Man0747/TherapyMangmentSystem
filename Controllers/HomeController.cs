@@ -17,7 +17,7 @@ namespace TherapyMangmentSystem.Controllers
         {
             _logger = logger;
         }
-
+        //hi this
         
         public IActionResult Index()
         {
