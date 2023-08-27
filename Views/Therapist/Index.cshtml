@@ -1,0 +1,90 @@
+﻿@model IEnumerable<TherapyMangmentSystem.Models.TherapistLoginModel>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Therapist_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BusinessAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClinicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeneralPracticeArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecialityArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Certifications)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Therapist_Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClinicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GeneralPracticeArea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecialityArea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Certifications)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.Therapist_Id  }) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.Therapist_Id  }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.Therapist_Id  })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

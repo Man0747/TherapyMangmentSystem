@@ -1,0 +1,174 @@
+﻿@*
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Scheduler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeduration {
+            margin-top: 5px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: auto;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: center;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        \
+        <form asp-action="Schedule">
+            <h1>Therapist Scheduler</h1>
+
+            <div>
+                <label for="StartDate">From Date:</label>
+                <input type="date" asp-for="Date" id="StartDate" name="StartDate">
+
+                <label for="EndDate">To Date:</label>
+                <input type="date" asp-for="Date" id="EndDate" name="EndDate">
+            </div>
+
+
+
+
+            <h2>Add Slots</h2>
+
+            <table>
+                <tr>
+                    <th>Day</th>
+                    <th>Time Duration</th>
+                    <th>
+                        <select name="Shift" asp-for="Shift" id="Shift">
+                            <option value="Morning">Morning</option>
+                            <option value="Afternoon">Afternoon</option>
+                            <option value="Evening">Evening</option>
+                        </select>
+                    </th>
+                    <th>Holiday</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        <select name="Day" asp-for="Day" id="Day">
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div class="timeduration">
+                            <label for="From">From Time</label>
+                        </div>
+                        <label for="To">To Time</label>
+
+                    </td>
+                    <td>
+                        <input type="time" name="FromTime" asp-for="FromTime" id="FromTime">
+                        <br>
+                        <input type="time" name="ToTime" asp-for="ToTime" id="ToTime">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="Isholiday" value="yes" asp-for="Isholiday" id="Isholiday" onchange="toggleInputs(this)">
+                    </td>
+                </tr>
+                <!-- Repeat the above block for each day of the week -->
+            </table>
+            <script>
+                function toggleInputs(checkbox) {
+                    var row = checkbox.closest("tr");
+                    var inputs = row.querySelectorAll("input[type='time'], select:not([name='Day']), #timeSlotDuration");
+
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].disabled = checkbox.checked;
+                    }
+                }
+            </script>
+
+            <div>
+                <label for="Slot">Time Slot Duration:</label>
+                <select id="Slot" asp-for="Slot" name="Slot">
+                    <option value="15">15 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="45">45 minutes</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <input type="submit" class="button" value="Submit" />
+            </div>
+        </form>
+</body>
+</html>
+*@

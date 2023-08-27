@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        #date-range-picker {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+            #date-range-picker label {
+                margin-left: 20px;
+                margin-right: 10px;
+            }
+
+        #start-date,
+        #end-date {
+            width: 150px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #show-schedules-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+            #show-schedules-btn:hover {
+                background-color: #0056b3;
+            }
+
+        #schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .schedule {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            border-radius: 4px;
+        }
+
+            .schedule:hover {
+                background-color: #f5f5f5;
+            }
+
+        #appointment-details {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #bd2130;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+    <script>
+
+        function showDetails() {
+            document.getElementById("appointment-details").style.display = "block";
+        }
+
+        function closeDetails() {
+            document.getElementById("appointment-details").style.display = "none";
+        }
+
+        function cancelAppointment() {
+            // Add your cancellation logic here
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Dashboard</h1>
+        <div id="date-range-picker">
+            <label for="start-date">Start Date</label>
+            <input type="date" id="start-date" value="2023-08-01" />
+            <label for="end-date">End Date</label>
+            <input type="date" id="end-date" value="2023-08-15" />
+            <button id="show-schedules-btn">
+                Show Schedules
+            </button>
+        </div>
+        <div id="appointments">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Schedule Time</th>
+                        <th>Therapist Name</th>
+                        <th>Therapy</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>9Am to 10AM</td>
+                        <td>Mannan</td>
+                        <td>Stress</td>
+                        <td>
+                            <button onclick="showDetails()">
+                                Show Appointment Details
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>9Am to 10AM</td>
+                        <td>Mannan</td>
+                        <td>Stress</td>
+                        <td>
+                            <button onclick="showDetails()">
+                                Show Appointment Details
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>9Am to 10AM</td>
+                        <td>Mannan</td>
+                        <td>Stress</td>
+                        <td>
+                            <button onclick="showDetails()">
+                                Show Appointment Details
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="appointment-details">
+            <h2>Appointment Details</h2>
+            <p>
+                <strong>Schedule Date Range:</strong>
+                <span id="appointment-time">19</span>
+            </p>
+            <p>
+                <strong>Total Fees:</strong>
+                <span id="appointment-therapist"></span>
+            </p>
+            <p>
+                <strong>Patient Name:</strong>
+                <span id="appointment-therapy"></span>
+            </p>
+            <button id="show-schedules-btn" onclick="closeDetails()">Close</button>
+            <button onclick="cancelAppointment()">Cancel Appointment</button>
+        </div>
+    </div>
+</body>
+</html>
