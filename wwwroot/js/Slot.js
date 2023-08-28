@@ -180,50 +180,50 @@ function collectSelectedSlots(containerId) {
 }
 
 
-function sumbitslots() {
+    function sumbitslots() {
 
 
-    const morningSlots = collectSelectedSlots("morningslotContainer");
+        const morningSlots = collectSelectedSlots("morningslotContainer");
 
-    const afternoonSlots = collectSelectedSlots("afternoonslotContainer");
-    const eveningSlots = collectSelectedSlots("eveningslotContainer");
-
-
-    const selectedSlots = [...morningSlots, ...afternoonSlots, ...eveningSlots];
+        const afternoonSlots = collectSelectedSlots("afternoonslotContainer");
+        const eveningSlots = collectSelectedSlots("eveningslotContainer");
 
 
-    const selectedDate = $("#start-date").val();
-    const slotDuration = parseInt($("#selects-slot").val());
-    //const isHoliday = isHoliday; // Use the variable that tracks the holiday status
+        const selectedSlots = [...morningSlots, ...afternoonSlots, ...eveningSlots];
 
-    let holiday = true;
-    if ($("#holiday-button").text() == "Declare Holiday") {
-        holiday = false;
-    }
-    else {
-        holiday = true;
-    }
-    const requestData = {
-        date: selectedDate,
-        slot: slotDuration,
-        Isholiday: holiday,
-        slots: selectedSlots
-    };
 
-    $.ajax({
-        type: "POST",
-        url: "/Therapist/Schedule",
-        data: JSON.stringify(requestData),
-        contentType: "application/json; charset=utf-8",
-        success: function (response) {
+        const selectedDate = $("#start-date").val();
+        const slotDuration = parseInt($("#selects-slot").val());
+        //const isHoliday = isHoliday; // Use the variable that tracks the holiday status
 
-            console.log(response);
-        },
-        error: function (xhr, textStatus, errorThrown) {
-            console.error("Error:", textStatus, errorThrown);
+        let holiday = "true";
+        if ($("#holiday-button").text() == "Declare Holiday") {
+            holiday = "false";
         }
-    });
-};
+        else {
+            holiday = "true";
+        }
+        const requestData = {
+            date: selectedDate,
+            slot: slotDuration,
+            Isholiday: holiday,
+            slots: selectedSlots
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/Therapist/Schedule",
+            data: JSON.stringify(requestData),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+
+                console.log(response);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error:", textStatus, errorThrown);
+            }
+        });
+    };
 
 
 
