@@ -6,9 +6,9 @@ function morninggenerateSlots() {
 
     $("#morningslotContainer").empty();
 
-    
-    const startTime = 6 * 60; 
-    const endTime = 12 * 60 ;   
+
+    const startTime = 6 * 60;
+    const endTime = 12 * 60;
 
 
     for (let time = startTime; time < endTime; time += slotDuration) {
@@ -43,8 +43,8 @@ function afternoongenerateSlots() {
     $("#afternoonslotContainer").empty();
 
 
-    const startTime = 12 * 60; 
-    const endTime = 18 * 60 ;   
+    const startTime = 12 * 60;
+    const endTime = 18 * 60;
 
     for (let time = startTime; time < endTime; time += slotDuration) {
         const startHours = Math.floor(time / 60);
@@ -60,7 +60,7 @@ function afternoongenerateSlots() {
 
         slotButton.text(`${startTimeSlot} - ${endTimeSlot}`);
 
-   
+
         slotButton.click(function () {
             slotButton.toggleClass("selected");
         });
@@ -72,24 +72,24 @@ function afternoongenerateSlots() {
 
 
 function eveninggenerateSlots() {
-    
+
     const slotDuration = parseInt($("#selects-slot").val());
 
-    
+
     $("#eveningslotContainer").empty();
 
-   
-    const startTime = 18 * 60; 
-    const endTime = 24 * 60;   
 
-    
+    const startTime = 18 * 60;
+    const endTime = 24 * 60;
+
+
     for (let time = startTime; time < endTime; time += slotDuration) {
         const startHours = Math.floor(time / 60);
         const startMinutes = time % 60;
         const endHours = Math.floor((time + slotDuration) / 60);
         const endMinutes = (time + slotDuration) % 60;
 
-        
+
         const startTimeSlot = formatTime(startHours, startMinutes);
         const endTimeSlot = formatTime(endHours, endMinutes);
 
@@ -132,17 +132,17 @@ function formatTime(hours, minutes) {
 
 
 function Holiday() {
-    
+
     let isHoliday = false;
     const holidayButton = $(this);
     const selectsSlot = $("#selects-slot");
 
     if (holidayButton.text() == "Undeclare Holiday") {
-        isHoliday = true; 
+        isHoliday = true;
     }
     else {
         isHoliday = false;
-    } 
+    }
     if (isHoliday) {
 
         morninggenerateSlots();
@@ -151,6 +151,7 @@ function Holiday() {
         selectsSlot.removeAttr("disabled");
         $("#holiday-message").remove();
         $("h2").show();
+        $("#submitButton").show();
         holidayButton.text("Declare Holiday");
         isHoliday = false;
     } else {
@@ -160,9 +161,10 @@ function Holiday() {
         $("#eveningslotContainer").empty();
         selectsSlot.attr("disabled", "disabled");
         $("h2").hide();
+        $("#submitButton").hide();
         holidayButton.text("Undeclare Holiday");
         isHoliday = true;
-        
+
         const holidayMessage = $("<h3>").attr("id", "holiday-message").text("Declared Holiday. Please select another Date .");
         $("#morningslotContainer").append(holidayMessage);
     }
@@ -180,9 +182,9 @@ function collectSelectedSlots(containerId) {
 
 function sumbitslots() {
 
-   
+
     const morningSlots = collectSelectedSlots("morningslotContainer");
-    
+
     const afternoonSlots = collectSelectedSlots("afternoonslotContainer");
     const eveningSlots = collectSelectedSlots("eveningslotContainer");
 
@@ -194,11 +196,17 @@ function sumbitslots() {
     const slotDuration = parseInt($("#selects-slot").val());
     //const isHoliday = isHoliday; // Use the variable that tracks the holiday status
 
-
+    let holiday = true;
+    if ($("#holiday-button").text() == "Declare Holiday") {
+        holiday = false;
+    }
+    else {
+        holiday = true;
+    }
     const requestData = {
         date: selectedDate,
         slot: slotDuration,
-       /* isHoliday: isHoliday,*/
+        Isholiday: holiday,
         slots: selectedSlots
     };
 
