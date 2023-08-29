@@ -121,10 +121,24 @@ namespace TherapyMangmentSystem.Controllers
         }
 
         [Authorize(Roles = "admin,therapist")]
+        public ActionResult IsScheduleExist(string status)
+        {
+            TherapistOPS therapistops = new TherapistOPS();
+            if (therapistops.IsScheduleExist(Convert.ToDateTime(status)))
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
+
+        [Authorize(Roles = "admin,therapist")]
         // In your controller action
         public ActionResult Schedule()
         {
-            //TherapistOPS therapistops = new TherapistOPS();
+            
             //var scheduleList = therapistops.GetScheduleTherapist();
             //return View(scheduleList);
             return View();
@@ -146,23 +160,7 @@ namespace TherapyMangmentSystem.Controllers
                     ViewBag.Message = "Therapist Details Added Successfully";
                     ModelState.Clear();
                 }
-                //Date selectedDate = slotDataModel.Date;
-                //int slotDuration = slotDataModel.SlotDuration;
-                //bool isHoliday = slotDataModel.IsHoliday;
-                //List<string> selectedSlots = slotDataModel.Slots;
-
-
-                //if (ModelState.IsValid)
-                //{
-
-                //scheduleviewmodel.Therapist_Id = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
-                //TherapistOPS therapistops = new TherapistOPS();
-                //if (therapistops.ScheduleTherapist(scheduleviewmodel))
-                //{
-                //    ViewBag.Message = "Therapist Details Added Successfully";
-                //    ModelState.Clear();
-                //}
-                //}
+               
                 return RedirectToAction("Schedule", "Therapist");
                 return View();
 

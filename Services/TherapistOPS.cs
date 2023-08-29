@@ -240,7 +240,7 @@ namespace TherapyMangmentSystem.Services
             cmd.Parameters.Add(new MySqlParameter("p_Therapist_Id", slotDataModel.Therapist_Id));
             cmd.Parameters.Add(new MySqlParameter("p_Isholiday", "false"));
 
-            int k= 0;
+            int k = 0;
 
             connection.Open();
 
@@ -255,13 +255,13 @@ namespace TherapyMangmentSystem.Services
                 Schedule_Id = Convert.IsDBNull(reader["v_Schedule_Id"]) ? 0 : Convert.ToInt32(reader["v_Schedule_Id"]);
             }
 
-            
+
             connection.Close();
 
 
             MySqlCommand cmd1 = new MySqlCommand("AddScheduleSlots", connection);
             cmd1.CommandType = CommandType.StoredProcedure;
-            
+
             for (int j = 0; j < slotDataModel.Slots.Count; j++)
             {
 
@@ -280,7 +280,7 @@ namespace TherapyMangmentSystem.Services
                     slotDataModel.Shift = "afternoon";
                 }
                 else if (DateTime.Parse(FromTime) >= DateTime.Parse("06:00 PM") &&
-                    DateTime.Parse(ToTime) <= DateTime.Parse("11:59 PM"))
+                    DateTime.Parse(ToTime) <= DateTime.Parse("10:45 PM"))
                 {
                     slotDataModel.Shift = "evening";
                 }
@@ -295,7 +295,7 @@ namespace TherapyMangmentSystem.Services
                 cmd1.Parameters.Add(new MySqlParameter("p_Schedule_Id", Schedule_Id));
 
                 connection.Open();
-               k = cmd1.ExecuteNonQuery();
+                k = cmd1.ExecuteNonQuery();
                 connection.Close();
             }
             if (k >= 1)
@@ -303,6 +303,46 @@ namespace TherapyMangmentSystem.Services
             else
                 return false;
 
+        }
+
+
+        public bool IsScheduleExist(DateTime scheduleDate)
+        {
+            MySqlConnection();
+            MySqlCommand cmd = new MySqlCommand("IsScheduleExist", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            cmd.Parameters.Clear();
+
+            cmd.Parameters.Add(new MySqlParameter("p_Date", scheduleDate.Date.ToString("yyyy-MM-dd")));
+
+            connection.Open();
+
+            //int i = cmd.ExecuteNonQuery();
+
+            using MySqlDataReader reader = cmd.ExecuteReader();
+
+
+            DateTime DBDate = DateTime.Now;
+            while (reader.Read())
+                       {
+                            DBDate = Convert.ToDateTime(reader["Date"]);
+                       }
+
+            connection.Close();
+
+
+            if (scheduleDate == DBDate)
+            {
+                return true;
+            }
+
+            else
+            {
+
+                return false;
+            }
         }
         //public bool AddScheduleSlots(SlotDataModel slotDataModel)
         //{

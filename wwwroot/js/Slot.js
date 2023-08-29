@@ -80,7 +80,7 @@ function eveninggenerateSlots() {
 
 
     const startTime = 18 * 60;
-    const endTime = 24 * 60;
+    const endTime = 22 * 60;
 
 
     for (let time = startTime; time < endTime; time += slotDuration) {
@@ -169,6 +169,46 @@ function Holiday() {
         $("#morningslotContainer").append(holidayMessage);
     }
 };
+
+
+
+function getDateFromInput() {
+
+    const selectedSlotDate = $('#start-date').val();
+    const requestData = {
+        Date: selectedSlotDate
+    };
+    var status = selectedSlotDate
+
+    $.ajax({
+        type: "GET",
+        url: "/Therapist/IsScheduleExist",
+        data: { 'status': status },
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+
+
+            if (response) {
+                $('#editBtn').removeAttr("hidden");
+                $('#holiday-button').hide();
+                $("#selects-slot").attr("disabled", "disabled");
+                $("#submitButton").hide();
+            } else {
+                alert("Message Not Sent, Please check details");
+            }
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            console.error("Error:", textStatus, errorThrown);
+        }
+    });
+
+}
+
+
+
+
+
 function collectSelectedSlots(containerId) {
     const selectedSlots = [];
     $(`#${containerId} .slot-button.selected`).each(function () {
@@ -179,51 +219,50 @@ function collectSelectedSlots(containerId) {
 
 }
 
-
-    function sumbitslots() {
-
-
-        const morningSlots = collectSelectedSlots("morningslotContainer");
-
-        const afternoonSlots = collectSelectedSlots("afternoonslotContainer");
-        const eveningSlots = collectSelectedSlots("eveningslotContainer");
+function sumbitslots() {
 
 
-        const selectedSlots = [...morningSlots, ...afternoonSlots, ...eveningSlots];
+    const morningSlots = collectSelectedSlots("morningslotContainer");
+
+    const afternoonSlots = collectSelectedSlots("afternoonslotContainer");
+    const eveningSlots = collectSelectedSlots("eveningslotContainer");
 
 
-        const selectedDate = $("#start-date").val();
-        const slotDuration = parseInt($("#selects-slot").val());
-        //const isHoliday = isHoliday; // Use the variable that tracks the holiday status
+    const selectedSlots = [...morningSlots, ...afternoonSlots, ...eveningSlots];
 
-        let holiday = "true";
-        if ($("#holiday-button").text() == "Declare Holiday") {
-            holiday = "false";
-        }
-        else {
-            holiday = "true";
-        }
-        const requestData = {
-            date: selectedDate,
-            slot: slotDuration,
-            Isholiday: holiday,
-            slots: selectedSlots
-        };
 
-        $.ajax({
-            type: "POST",
-            url: "/Therapist/Schedule",
-            data: JSON.stringify(requestData),
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
+    const selectedDate = $("#start-date").val();
+    const slotDuration = parseInt($("#selects-slot").val());
+    //const isHoliday = isHoliday; // Use the variable that tracks the holiday status
 
-                console.log(response);
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.error("Error:", textStatus, errorThrown);
-            }
-        });
+    let holiday = "true";
+    if ($("#holiday-button").text() == "Declare Holiday") {
+        holiday = "false";
+    }
+    else {
+        holiday = "true";
+    }
+    const requestData = {
+        date: selectedDate,
+        slot: slotDuration,
+        Isholiday: holiday,
+        slots: selectedSlots
     };
+
+    $.ajax({
+        type: "POST",
+        url: "/Therapist/Schedule",
+        data: JSON.stringify(requestData),
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+
+            console.log(response);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            console.error("Error:", textStatus, errorThrown);
+        }
+    });
+};
 
 
 

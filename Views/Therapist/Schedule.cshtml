@@ -145,6 +145,28 @@
                 color: #fff;
             }
 
+        #editBtn {
+            width: 150px;
+            position: relative;
+            left: 120px;
+            top: 20px;
+            align-items: center;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+            
+
+        #editBtn:hover {
+                background-color: #007bff;
+        }
         #submitButton {
             width: 150px;
             position: relative;
@@ -172,7 +194,7 @@
         <div class="container">
             <h1>Patient Dashboard</h1>
             <div id="date-range-picker">
-                <label for="start-date">Start Date</label>
+                <label for="start-date">Date</label>
                 <input type="date" id="start-date" asp-for="Date" required />
                 <label for="selects-slot">Select Slot Duration:</label>
                 <select id="selects-slot" asp-for="Slot">
@@ -195,7 +217,7 @@
             <div id="afternoonslotContainer">
                 <!-- Time slots will be added here as buttons -->
             </div>
-            <h2>Evening Slots (6:00 PM - 12:00 AM)</h2>
+            <h2>Evening Slots (6:00 PM - 10:00 PM)</h2>
 
             <div id="eveningslotContainer">
                 <!-- Time slots will be added here as buttons -->
@@ -203,6 +225,8 @@
 
             <div id="result"></div>
 
+
+            <button id="editBtn" type="button" hidden>Edit</button>
             <button id="submitButton" type="button">Submit</button>
         </div>
     </form>
@@ -211,17 +235,15 @@
 
         $(document).ready(function () {
 
-            //$("#start-date").change(function () {
-            //    const selectedDate = $(this).val();
-            //    if (selectedDate) {
-            //        $("#selects-slot").removeAttr("disabled");
-            //        $("#holiday-button").removeAttr("disabled");
-            //    } else {
-            //        $("#selects-slot").attr("disabled", "disabled");
-            //        $("#holiday-button").attr("disabled", "disabled");
-            //    }
-            //});
+            var today = new Date();          
+            var yyyy = today.getFullYear();
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var dd = String(today.getDate()).padStart(2, '0');
+            var formattedDate = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('start-date').value = formattedDate;
 
+           
+            $("#start-date").change(getDateFromInput);
             morninggenerateSlots();
             $("#selects-slot").change(morninggenerateSlots);
 
