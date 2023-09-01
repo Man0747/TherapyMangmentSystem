@@ -1,0 +1,250 @@
+﻿@model TherapyMangmentSystem.Models.SlotDataModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/js/Slot.js"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        #date-range-picker {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+            #date-range-picker label {
+                margin-left: 20px;
+                margin-right: 10px;
+            }
+
+        #start-date,
+        #selects-slot {
+            width: 150px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #show-schedules-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+            #show-schedules-btn:hover {
+                background-color: #0056b3;
+            }
+
+        #schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .schedule {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            border-radius: 4px;
+        }
+
+            .schedule:hover {
+                background-color: #f5f5f5;
+            }
+
+        #appointment-details {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #holiday-button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            margin-left: 20px;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            #holiday-button:hover {
+                background-color: #bd2130;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .slot-button {
+            display: inline-block;
+            width: 160px;
+            height: 40px;
+            margin: 5px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+
+        .slotavailable-button {
+            display: inline-block;
+            width: 160px;
+            height: 40px;
+            margin: 5px;
+            background-color: #007bff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+
+        .slot-button.selected {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #editBtn {
+            width: 150px;
+            position: relative;
+            left: 120px;
+            top: 20px;
+            align-items: center;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+
+
+            #editBtn:hover {
+                background-color: #007bff;
+            }
+
+        #submitButton {
+            width: 150px;
+            position: relative;
+            left: 120px;
+            top: 20px;
+            align-items: center;
+            padding: 12px;
+            background-color: #54b957;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+            #submitButton:hover {
+                background-color: #429b46;
+            }
+    </style>
+</head>
+<body>
+    <form id="myForm" asp-action="Schedule">
+        <div class="container">
+            <h1>Patient Dashboard</h1>
+            <div id="date-range-picker">
+                <label for="start-date">Date</label>
+                <input type="date" id="start-date" asp-for="Date" required />
+                <label for="selects-slot">Select Slot Duration:</label>
+                <select id="selects-slot" asp-for="Slot">
+                    <option value="15">15 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="45">45 minutes</option>
+                </select>
+
+                <button id="holiday-button" type="button">Declare Holiday</button>
+
+
+            </div>
+            <h2>Morning Slots (6:00 AM - 12:00 PM)</h2>
+
+            <div id="morningslotContainer">
+                <!-- Time slots will be added here as buttons -->
+            </div>
+            <h2>Afternoon Slots (12:00 PM - 6:00 AM)</h2>
+
+            <div id="afternoonslotContainer">
+                <!-- Time slots will be added here as buttons -->
+            </div>
+            <h2>Evening Slots (6:00 PM - 10:00 PM)</h2>
+
+            <div id="eveningslotContainer">
+                <!-- Time slots will be added here as buttons -->
+            </div>
+
+            <div id="result"></div>
+
+
+            <button id="editBtn" type="button" hidden>Edit</button>
+            <button id="submitButton" type="button">Submit</button>
+        </div>
+    </form>
+
+</body>
+</html>
+
