@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/wwwroot/js/test.js
+/wwwroot/js/Slot.js
+/Views/Therapist/Schedule1.cshtml
+/Views/Therapist/Schedule.cshtml
