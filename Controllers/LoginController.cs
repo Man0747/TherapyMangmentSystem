@@ -40,7 +40,8 @@ namespace TherapyMangmentSystem.Controllers
                     {
                         List<Claim> claims = new List<Claim>
                                     {
-                                        new Claim(ClaimTypes.NameIdentifier, loginmodel.Login_Id),
+                                        new Claim(ClaimTypes.Email, loginmodel.Login_Id),
+                                        new Claim(ClaimTypes.NameIdentifier, loginmodel.User_Id.ToString()),
                                         new Claim(ClaimTypes.Role,"patient")
                                     };
 
@@ -66,6 +67,7 @@ namespace TherapyMangmentSystem.Controllers
                         List<Claim> claims = new List<Claim>
                                     {
                                         new Claim(ClaimTypes.NameIdentifier, loginmodel.Login_Id),
+                                        new Claim(ClaimTypes.NameIdentifier, loginmodel.User_Id.ToString()),
                                         new Claim(ClaimTypes.Role,"therapist")
                                     };
 
@@ -90,6 +92,7 @@ namespace TherapyMangmentSystem.Controllers
                         List<Claim> claims = new List<Claim>
                                     {
                                         new Claim(ClaimTypes.NameIdentifier, loginmodel.Login_Id),
+                                        new Claim(ClaimTypes.NameIdentifier, loginmodel.User_Id.ToString()),
                                         new Claim(ClaimTypes.Role,"admin")
                                     };
 
@@ -133,6 +136,7 @@ namespace TherapyMangmentSystem.Controllers
                         List<Claim> claims = new List<Claim>
                                     {
                                         new Claim(ClaimTypes.NameIdentifier, loginmodel.Login_Id),
+                                        new Claim(ClaimTypes.NameIdentifier, loginmodel.User_Id.ToString()),
                                         new Claim(ClaimTypes.Role,"patient")
                                     };
 
@@ -158,6 +162,7 @@ namespace TherapyMangmentSystem.Controllers
                         List<Claim> claims = new List<Claim>
                                     {
                                         new Claim(ClaimTypes.NameIdentifier, loginmodel.Login_Id),
+                                        new Claim(ClaimTypes.NameIdentifier, loginmodel.User_Id.ToString()),
                                         new Claim(ClaimTypes.Role,"therapist")
                                     };
 
@@ -182,6 +187,7 @@ namespace TherapyMangmentSystem.Controllers
                         List<Claim> claims = new List<Claim>
                                     {
                                         new Claim(ClaimTypes.NameIdentifier, loginmodel.Login_Id),
+                                        new Claim(ClaimTypes.NameIdentifier, loginmodel.User_Id.ToString()),
                                         new Claim(ClaimTypes.Role,"admin")
                                     };
 

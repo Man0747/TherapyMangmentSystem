@@ -123,16 +123,28 @@ namespace TherapyMangmentSystem.Controllers
         [Authorize(Roles = "admin,therapist")]
         public ActionResult IsScheduleExist(string status)
         {
+            //int id = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+            int id = 2;
             TherapistOPS therapistops = new TherapistOPS();
+
+            ScheduleResponse response = new ScheduleResponse();
+
             if (therapistops.IsScheduleExist(Convert.ToDateTime(status)))
             {
-                return Json(true);
+                // Schedule exists
+                response.scheduleExists = true;
+                response.Slots = therapistops.GetSlots(Convert.ToDateTime(status), id);
             }
             else
             {
-                return Json(false);
+                // Schedule does not exist
+                response.scheduleExists = false;
+                response.Slots = new List<String>();
             }
+
+            return Json(response);
         }
+
 
         [Authorize(Roles = "admin,therapist")]
         // In your controller action

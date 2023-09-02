@@ -346,11 +346,11 @@ namespace TherapyMangmentSystem.Services
             }
         }
 
-        public bool GetSlots(DateTime scheduleDate, int TherapistId)
+        public List<String> GetSlots(DateTime scheduleDate, int TherapistId)
         {
 
             MySqlConnection();
-            MySqlCommand cmd = new MySqlCommand("IsScheduleExist", connection);
+            MySqlCommand cmd = new MySqlCommand("GetSlots", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Clear();
@@ -358,12 +358,35 @@ namespace TherapyMangmentSystem.Services
             cmd.Parameters.Add(new MySqlParameter("p_Date", scheduleDate.Date.ToString("yyyy-MM-dd")));
             cmd.Parameters.Add(new MySqlParameter("p_Therapist_Id", TherapistId));
 
+            List<String> Slots = new List<String>();
+
             connection.Open();
 
             using MySqlDataReader reader = cmd.ExecuteReader();
 
 
-            return true;
+            TimeSpan DB_FromTime;
+            TimeSpan DB_ToTime;
+
+            String FinalTime;
+            while (reader.Read())
+
+            {
+                DB_FromTime = (TimeSpan)reader["FromTime"];
+
+                DateTime FromTime = DateTime.Today.Add(DB_FromTime);
+                string displayFromTime = FromTime.ToString("hh:mm tt");
+
+                DB_ToTime = (TimeSpan)reader["ToTime"];
+
+                DateTime ToTime = DateTime.Today.Add(DB_ToTime);
+                string displayToTime = ToTime.ToString("hh:mm tt");
+
+                FinalTime = displayFromTime + " - " + displayToTime;
+                Slots.Add(FinalTime);
+            }
+
+            return Slots;
         }
         //public bool AddScheduleSlots(SlotDataModel slotDataModel)
         //{
