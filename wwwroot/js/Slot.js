@@ -7,7 +7,7 @@ function getDateFromInput() {
     };
     var status = selectedSlotDate
 
-    $.ajax({
+    $.ajax({     
         type: "GET",
         url: "/Therapist/IsScheduleExist",
         data: { 'status': status },

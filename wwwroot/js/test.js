@@ -47,16 +47,16 @@
 
             let slotButton; // Change to let
 
-            if (slots !== null && slots.includes(`${startTimeSlot} - ${endTimeSlot}`)) {
-                slotButton = $("<div>").addClass("slotavailable-button");
-                slotButton.text(`${startTimeSlot} - ${endTimeSlot}`);
-            } else {
-                slotButton = $("<div>").addClass("slot-button");
+            //if (slots !== null && slots.includes(`${startTimeSlot} - ${endTimeSlot}`)) {
+            //    slotButton = $("<div>").addClass("slotavailable-button");
+            //    slotButton.text(`${startTimeSlot} - ${endTimeSlot}`);
+            //} else {
+            //    slotButton = $("<div>").addClass("slot-button");
                 slotButton.text(`${startTimeSlot} - ${endTimeSlot}`);
                 slotButton.click(function () {
                     slotButton.toggleClass("selected");
                 });
-            }
+            //}
             $("#morningslotContainer").append(slotButton);
         }
     }

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="~/js/Slot.js"></script>
+    <script src="~/js/ScheduleSlot.js"  ></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -127,6 +127,18 @@
             background-color: #f5f5f5;
         }
 
+        .slotavailable-button {
+            display: inline-block;
+            width: 160px;
+            height: 40px;
+            margin: 5px;
+            background-color: #007bff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
         .slot-button {
             display: inline-block;
             width: 160px;
@@ -238,41 +250,49 @@
         $(document).ready(function () {
 
 
-            function generateSlots() {
-                // Call your slot generation logic here
-                morninggenerateSlots();
-                afternoongenerateSlots();
-                eveninggenerateSlots();
-            }
+            //function generateSlots() {
+            //    // Call your slot generation logic here
+            //    morninggenerateSlots();
+            //    afternoongenerateSlots();
+            //    eveninggenerateSlots();
+            //}
 
-            var today = new Date();
-            var yyyy = today.getFullYear();
-            var mm = String(today.getMonth() + 1).padStart(2, '0');
-            var dd = String(today.getDate()).padStart(2, '0');
-            var formattedDate = yyyy + '-' + mm + '-' + dd;
-            document.getElementById('start-date').value = formattedDate;
-
-
+            //var today = new Date();
+            //var yyyy = today.getFullYear();
+            //var mm = String(today.getMonth() + 1).padStart(2, '0');
+            //var dd = String(today.getDate()).padStart(2, '0');
+            //var formattedDate = yyyy + '-' + mm + '-' + dd;
+            //document.getElementById('start-date').value = formattedDate;
 
 
-            $('#editBtn').hide();
-            //$("#start-date").change(getDateFromInput);
-            $("#start-date").change(morninggenerateSlots);
+
+
+            //$('#editBtn').hide();
+            ////$("#start-date").change(getDateFromInput);
+            //$("#start-date").change(morninggenerateSlots);
             
 
-            $("#selects-slot").change(generateSlots);
+            //$("#selects-slot").change(generateSlots);
 
                      
-            $("#holiday-button").click(Holiday);
-            $("#holiday-button").change(Holiday);
+            //$("#holiday-button").click(Holiday);
+            //$("#holiday-button").change(Holiday);
 
 
-            $("#submitButton").click(sumbitslots);
+            //$("#submitButton").click(sumbitslots);
 
         });
 
 
     </script>
+
+
+    <script type="text/javascript">
+      
+    </script>
+   
+
+
 </body>
 </html>
 
