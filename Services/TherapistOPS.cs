@@ -306,7 +306,7 @@ namespace TherapyMangmentSystem.Services
         }
 
 
-        public bool IsScheduleExist(DateTime scheduleDate)
+        public (bool , int) IsScheduleExist(DateTime scheduleDate)
         {
             MySqlConnection();
             MySqlCommand cmd = new MySqlCommand("IsScheduleExist", connection);
@@ -324,11 +324,12 @@ namespace TherapyMangmentSystem.Services
 
             using MySqlDataReader reader = cmd.ExecuteReader();
 
-
+            int Slot = 0;
             DateTime DBDate = DateTime.Now;
             while (reader.Read())
             {
                 DBDate = Convert.ToDateTime(reader["Date"]);
+                Slot = Convert.IsDBNull(reader["Slot"]) ? 0 : Convert.ToInt32(reader["Slot"]);
             }
 
             connection.Close();
@@ -336,13 +337,14 @@ namespace TherapyMangmentSystem.Services
 
             if (scheduleDate == DBDate)
             {
-                return true;
+                return (true, Slot);
             }
+        
 
             else
             {
 
-                return false;
+                return (false, Slot);
             }
         }
 

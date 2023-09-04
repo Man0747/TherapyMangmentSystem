@@ -126,20 +126,22 @@ namespace TherapyMangmentSystem.Controllers
             //int id = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
             int id = 2;
             TherapistOPS therapistops = new TherapistOPS();
-
+            (bool scheduleExists, int slot) result = therapistops.IsScheduleExist(Convert.ToDateTime(status));
             ScheduleResponse response = new ScheduleResponse();
 
-            if (therapistops.IsScheduleExist(Convert.ToDateTime(status)))
+            if (result.scheduleExists)
             {
                 // Schedule exists
                 response.scheduleExists = true;
                 response.Slots = therapistops.GetSlots(Convert.ToDateTime(status), id);
+                response.slotduration = result.slot;
             }
             else
             {
                 // Schedule does not exist
                 response.scheduleExists = false;
                 response.Slots = new List<String>();
+                
             }
 
             return Json(response);

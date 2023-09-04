@@ -16,13 +16,13 @@ function getDateFromInput() {
 
 
             if (response.scheduleExists) {
-                $('#editBtn').show();
+                $('#editBtn').removeAttr("hidden");
                 $('#holiday-button').hide();
                 $("#selects-slot").attr("disabled", "disabled");
                 $("#submitButton").hide();
                 DBslots = response.slots;
             } else {
-                $('#editBtn').hide();
+                $('#editBtn').attr("hidden", "hidden");
                 $('#holiday-button').show();
                 $("#selects-slot").removeAttr("disabled");
                 $("#submitButton").show();
