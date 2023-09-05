@@ -1,5 +1,6 @@
 ﻿
 let DBslots = [];
+let DBBackupSlots = [];
 $(function () {
     // All Evets are here
     var today = new Date();
@@ -16,9 +17,8 @@ $(function () {
 
     $("#submitButton").click(sumbitslots);
 
-   
     $("#editBtn").click(EditMode);
-    
+   
     $("#start-date").change(function () {
 
         const selectedSlotDate = $('#start-date').val();
@@ -50,6 +50,7 @@ $(function () {
                 morninggenerateSlots();
                 afternoongenerateSlots();
                 eveninggenerateSlots();
+                DBBackupSlots = DBslots;
                 DBslots = [];
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -57,6 +58,8 @@ $(function () {
             }
         });
     });
+    
+
     $("#start-date").trigger('change');
 });
 
@@ -363,12 +366,14 @@ function Holiday() {
 
 
 function EditMode() {
-    $("#start-date").trigger('change');
+    //$("#start-date").trigger('change');
+    DBslots = DBBackupSlots;
     $('#editBtn').attr("hidden", "hidden");
     $('#holiday-button').show();
     $("#selects-slot").removeAttr("disabled");
     $("#submitButton").show();
-    
+    generateSlots();
+    DBslots = [];
 }
 
 
