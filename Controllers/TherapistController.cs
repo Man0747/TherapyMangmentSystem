@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TherapyMangmentSystem.Models;
 using TherapyMangmentSystem.Services;
-
+using System.Security.Claims;
 
 
 namespace TherapyMangmentSystem.Controllers
@@ -124,7 +124,7 @@ namespace TherapyMangmentSystem.Controllers
         public ActionResult IsScheduleExist(string status)
         {
             //int id = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
-            int id = 2;
+            int id = Convert.ToInt32(User.FindFirstValue(ClaimTypes.Name));
             TherapistOPS therapistops = new TherapistOPS();
             (bool scheduleExists, int slot) result = therapistops.IsScheduleExist(Convert.ToDateTime(status));
             ScheduleResponse response = new ScheduleResponse();
@@ -167,7 +167,10 @@ namespace TherapyMangmentSystem.Controllers
         {
             try
             {   
-                slotDataModel.Therapist_Id= Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+                //slotDataModel.Therapist_Id= Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+
+                
+                slotDataModel.Therapist_Id = Convert.ToInt32(User.FindFirstValue(ClaimTypes.Name));
                 TherapistOPS therapistops = new TherapistOPS();
                 if (therapistops.AddSchedule(slotDataModel))
                 {
