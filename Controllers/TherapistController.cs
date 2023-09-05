@@ -126,7 +126,7 @@ namespace TherapyMangmentSystem.Controllers
             //int id = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
             int id = Convert.ToInt32(User.FindFirstValue(ClaimTypes.Name));
             TherapistOPS therapistops = new TherapistOPS();
-            (bool scheduleExists, int slot) result = therapistops.IsScheduleExist(Convert.ToDateTime(status));
+            (bool scheduleExists, int slot,int schedule_id) result = therapistops.IsScheduleExist(Convert.ToDateTime(status));
             ScheduleResponse response = new ScheduleResponse();
 
             if (result.scheduleExists)

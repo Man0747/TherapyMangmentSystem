@@ -225,17 +225,32 @@ namespace TherapyMangmentSystem.Services
 
         public bool AddSchedule(SlotDataModel slotDataModel)
         {
+
+            (bool scheduleExists, int slot,int schedule_id) result = IsScheduleExist(slotDataModel.Date);
+            if (result.scheduleExists == true )
+            {
+                MySqlConnection();
+                MySqlCommand cmd2 = new MySqlCommand("DeleteSchedule", connection);
+                cmd2.CommandType = CommandType.StoredProcedure;
+
+                cmd2.Parameters.Add(new MySqlParameter("p_Schedule_Id", result.schedule_id));
+
+                connection.Open();
+                int f = cmd2.ExecuteNonQuery();
+                connection.Close();
+
+            }
             MySqlConnection();
             MySqlCommand cmd = new MySqlCommand("AddSchedule", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
+           
 
             cmd.Parameters.Clear();
 
 
             //cmd.Parameters.Add(new MySqlParameter("p_Schedule_Id", scheduleviewmodel.Schedule_Id));
             cmd.Parameters.Add(new MySqlParameter("p_Date", slotDataModel.Date.ToString("yyyy-MM-dd")));
-
             cmd.Parameters.Add(new MySqlParameter("p_Slot", slotDataModel.Slot));
             cmd.Parameters.Add(new MySqlParameter("p_Therapist_Id", slotDataModel.Therapist_Id));
             cmd.Parameters.Add(new MySqlParameter("p_Isholiday", "false"));
@@ -306,7 +321,7 @@ namespace TherapyMangmentSystem.Services
         }
 
 
-        public (bool , int) IsScheduleExist(DateTime scheduleDate)
+        public (bool , int,int) IsScheduleExist(DateTime scheduleDate)
         {
             MySqlConnection();
             MySqlCommand cmd = new MySqlCommand("IsScheduleExist", connection);
@@ -325,11 +340,14 @@ namespace TherapyMangmentSystem.Services
             using MySqlDataReader reader = cmd.ExecuteReader();
 
             int Slot = 0;
+            int Scheudle_Id = 0;
             DateTime DBDate = DateTime.Now;
             while (reader.Read())
             {
                 DBDate = Convert.ToDateTime(reader["Date"]);
                 Slot = Convert.IsDBNull(reader["Slot"]) ? 0 : Convert.ToInt32(reader["Slot"]);
+                Scheudle_Id = Convert.IsDBNull(reader["Schedule_Id"]) ? 0 : Convert.ToInt32(reader["Schedule_Id"]);
+
             }
 
             connection.Close();
@@ -337,14 +355,14 @@ namespace TherapyMangmentSystem.Services
 
             if (scheduleDate == DBDate)
             {
-                return (true, Slot);
+                return (true, Slot, Scheudle_Id);
             }
         
 
             else
             {
 
-                return (false, Slot);
+                return (false, Slot, Scheudle_Id);
             }
         }
 
