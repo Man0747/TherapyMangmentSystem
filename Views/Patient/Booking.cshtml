@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fortis Greater Noida - Find a Doctor</title>
+    <link href="/css/stylebooking.css" rel="stylesheet"/>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Fortis Greater Noida</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Specialties</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="search-section">
+        <h2>Find a Doctor</h2>
+        <div class="search-bar">
+            <input type="text" id="symptom" placeholder="Enter your symptom" />
+            <button id="search-button">Search</button>
+        </div>
+    </section>
+
+    <section class="specialties">
+        <h2>Specialties</h2>
+        <ul>
+            <li><a href="#">Cardiology</a></li>
+            <li><a href="#">Orthopedics</a></li>
+            <li><a href="#">Neurology</a></li>
+            <li><a href="#">Oncology</a></li>
+            <!-- Add more specialties as needed -->
+        </ul>
+    </section>
+
+    <section class="doctor-list">
+        <h2>Doctors</h2>
+        <ul id="doctor-results">
+            <!-- Doctor profiles will be displayed here based on user's search -->
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Fortis Greater Noida</p>
+    </footer>
+
+    <script src="~/js/scriptbooking.js"></script>
+    <!-- Add JavaScript for search functionality -->
+</body>
+</html>

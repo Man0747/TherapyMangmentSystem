@@ -156,8 +156,43 @@ namespace TherapyMangmentSystem.Services
         }
 
 
+        
+        public List<TherapistModel> Search(TherapistModel therapistModel)
+        {
+            MySqlConnection();
 
 
+            List<TherapistModel> therapistlist = new List<TherapistModel>();
+            using MySqlCommand cmd = new MySqlCommand("Search", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new MySqlParameter("Search", therapistModel.Name));
+            
+
+            connection.Open();
+            using MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                therapistlist.Add(
+                    new TherapistModel
+                    {
+                        Therapist_Id = Convert.IsDBNull(reader["Therapist_Id"]) ? 0 : Convert.ToInt32(reader["Therapist_Id"]),
+                        Name = Convert.IsDBNull(reader["Name"]) ? null : Convert.ToString(reader["Name"]),
+                        
+                        Phone = Convert.IsDBNull(reader["Phone"]) ? null : Convert.ToString(reader["Phone"]),
+                        Email = Convert.IsDBNull(reader["Email"]) ? null : Convert.ToString(reader["Email"]),
+                       
+                        GeneralPracticeArea = Convert.IsDBNull(reader["GeneralPracticeArea"]) ? null : Convert.ToString(reader["GeneralPracticeArea"]),
+                        SpecialityArea = Convert.IsDBNull(reader["SpecialityArea"]) ? null : Convert.ToString(reader["SpecialityArea"]),
+                        
+
+                    });
+            }
+
+            connection.Close();
+            return therapistlist;
+        }
 
 
 

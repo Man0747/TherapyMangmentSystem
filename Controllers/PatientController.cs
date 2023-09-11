@@ -96,6 +96,22 @@ namespace TherapyMangmentSystem.Controllers
                 return View();
             }
         }
+
+        //GET
+        public ActionResult Booking()
+        {
+            return View();
+
+        }
+
+        //Post
+        [HttpPost]
+        public ActionResult Booking(TherapistModel therapistModel)
+        {
+            PatientOPS patientops = new PatientOPS();
+            patientops.Search(therapistModel);
+            return View();
+        }
     }
 
 }

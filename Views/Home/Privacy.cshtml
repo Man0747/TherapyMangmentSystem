@@ -1,6 +1,45 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/js/test.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Dashboard</title>
+    <style>
+        #submitButton {
+            width: 150px;
+            position: relative;
+            left: 120px;
+            top: 20px;
+            align-items: center;
+            padding: 12px;
+            background-color: #54b957;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+            #submitButton:hover {
+                background-color: #429b46;
+            }
+    </style>
+</head>
+<body>
+    <h1>@ViewData["Title"]</h1>
+
+    <p>Use this page to detail your site's privacy policy.</p>
+
+    <button id="submitButton" type="button">Submit</button>
+
+    
+</body>
+</html>
