@@ -1,4 +1,53 @@
-﻿// JavaScript for search functionality
+﻿$(function () {
+   
+    $("#symptom").change(function () {
+
+        const selectedSlotDate = $('#symptom').val();
+        const requestData = {
+            Date: selectedSlotDate
+        };
+        var status = selectedSlotDate
+        $.ajax({
+            type: "GET",
+            url: "/Therapist/IsScheduleExist",
+            data: { 'status': status },
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+
+                if (response.scheduleExists) {
+                    $('#editBtn').removeAttr("hidden");
+                    $('#holiday-button').hide();
+                    $("#selects-slot").attr("disabled", "disabled");
+                    $("#submitButton").hide();
+                    $("#selects-slot").val(response.slotduration);
+                    DBslots = response.slots;
+                } else {
+                    $('#editBtn').attr("hidden", "hidden");
+                    $('#holiday-button').show();
+                    $("#selects-slot").removeAttr("disabled");
+                    $("#submitButton").show();
+                    alert("Message Not Sent, Please check details");
+                }
+                morninggenerateSlots();
+                afternoongenerateSlots();
+                eveninggenerateSlots();
+                DBBackupSlots = DBslots;
+                DBslots = [];
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error:", textStatus, errorThrown);
+            }
+        });
+    });
+
+
+    $("#start-date").trigger('change');
+});
+
+
+
+
+// JavaScript for search functionality
 const searchButton = document.getElementById("search-button");
 const symptomInput = document.getElementById("symptom");
 const doctorResults = document.getElementById("doctor-results");
