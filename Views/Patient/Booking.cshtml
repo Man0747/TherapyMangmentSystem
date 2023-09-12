@@ -1,8 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@model List<TherapistModel>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/scriptbooking.js"></script>
     <title>Fortis Greater Noida - Find a Doctor</title>
     <link href="/css/stylebooking.css" rel="stylesheet"/>
 </head>
@@ -21,7 +25,7 @@
     <section class="search-section">
         <h2>Find a Doctor</h2>
         <div class="search-bar">
-            <input type="text" id="symptom" placeholder="Enter your symptom" />
+            <input type="text" id="symptom" placeholder="Enter Docotrs Name" />
             <button id="search-button">Search</button>
         </div>
     </section>
@@ -48,7 +52,53 @@
         <p>&copy; 2023 Fortis Greater Noida</p>
     </footer>
 
-    <script src="~/js/scriptbooking.js"></script>
+    
+    <script>
+
+
+        $(document).ready(function () {
+
+
+            //function generateSlots() {
+            //    // Call your slot generation logic here
+            //    morninggenerateSlots();
+            //    afternoongenerateSlots();
+            //    eveninggenerateSlots();
+            //}
+
+            //var today = new Date();
+            //var yyyy = today.getFullYear();
+            //var mm = String(today.getMonth() + 1).padStart(2, '0');
+            //var dd = String(today.getDate()).padStart(2, '0');
+            //var formattedDate = yyyy + '-' + mm + '-' + dd;
+            //document.getElementById('start-date').value = formattedDate;
+
+
+
+
+            //$('#editBtn').hide();
+            ////$("#start-date").change(getDateFromInput);
+            //$("#start-date").change(morninggenerateSlots);
+
+
+            //$("#selects-slot").change(generateSlots);
+
+
+            //$("#holiday-button").click(Holiday);
+            //$("#holiday-button").change(Holiday);
+
+
+            //$("#submitButton").click(sumbitslots);
+
+        });
+
+
+    </script>
+
+
+    <script type="text/javascript">
+
+    </script>
     <!-- Add JavaScript for search functionality -->
 </body>
 </html>

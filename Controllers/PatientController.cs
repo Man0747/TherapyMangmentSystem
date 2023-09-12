@@ -98,19 +98,25 @@ namespace TherapyMangmentSystem.Controllers
         }
 
         //GET
-        public ActionResult Booking()
-        {
-            return View();
+        //public ActionResult Booking()
+        //{
+        //    return View();
 
-        }
+        //}
 
         //Post
-        [HttpPost]
-        public ActionResult Booking(TherapistModel therapistModel)
+        
+        public ActionResult Booking(string status)
         {
-            PatientOPS patientops = new PatientOPS();
-            patientops.Search(therapistModel);
-            return View();
+            if (status != null)
+            {
+                TherapistModel therapistModel = new TherapistModel();
+                therapistModel.Name = status;
+                PatientOPS patientops = new PatientOPS();
+                List<TherapistModel> therapistlist = patientops.Search(therapistModel);
+                return Json(therapistlist);
+            }
+            else { return View(); }
         }
     }
 

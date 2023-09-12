@@ -166,7 +166,7 @@ namespace TherapyMangmentSystem.Services
             using MySqlCommand cmd = new MySqlCommand("Search", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add(new MySqlParameter("Search", therapistModel.Name));
+            cmd.Parameters.Add(new MySqlParameter("p_TherapistName", therapistModel.Name));
             
 
             connection.Open();
