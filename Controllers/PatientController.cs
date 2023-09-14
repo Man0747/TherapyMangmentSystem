@@ -97,15 +97,15 @@ namespace TherapyMangmentSystem.Controllers
             }
         }
 
-        //GET
-        //public ActionResult Booking()
-        //{
-        //    return View();
 
-        //}
+        public ActionResult BookSlots()
+        {
+            return View();
+
+        }
 
         //Post
-        
+
         public ActionResult Booking(string status)
         {
             if (status != null)
